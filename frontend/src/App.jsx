@@ -10,6 +10,7 @@ import PlayerStats from './components/PlayerStats';
 import './index.css';
 import Login from './components/Login';
 import AdminUsers from './components/AdminUsers';
+import DBFeatures from './components/DBFeatures';
 import { useAuth } from './auth/AuthProvider';
 
 export default function App(){
@@ -36,6 +37,7 @@ export default function App(){
           <button className={view==='results'?'active':''} onClick={()=>setView('results')}>Results</button>
           <button className={view==='stats'?'active':''} onClick={()=>setView('stats')}>Player Stats</button>
           {user.role === 'Admin' && <button className={view==='users'?'active':''} onClick={()=>setView('users')}>Users</button>}
+          {user.role === 'Admin' && <button className={view==='dbfeatures'?'active':''} onClick={()=>setView('dbfeatures')}>DB Features</button>}
           <button onClick={logout} style={{marginLeft:8}}>Sign out</button>
         </div>
       </div>
@@ -49,6 +51,7 @@ export default function App(){
         {view==='results' && <Results />}
         {view==='stats' && <PlayerStats />}
         {view==='users' && user.role === 'Admin' && <AdminUsers />}
+        {view==='dbfeatures' && user.role === 'Admin' && <DBFeatures />}
       </div>
     </div>
   );

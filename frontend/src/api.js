@@ -65,5 +65,13 @@ export const Stats = {
   del: (id) => request(`/stats/${id}`, { method: 'DELETE' })
 };
 
+export const DBFeatures = {
+  aggregates: () => request('/db-features/aggregates'),
+  topScorers: () => request('/db-features/top-scorers'),
+  matchResults: () => request('/db-features/match-results'),
+  addResult: (payload) => request('/db-features/add-result', { method: 'POST', body: JSON.stringify(payload) }),
+  goalsPerGame: (playerId) => request(`/db-features/goals-per-game/${playerId}`)
+};
+
 // expose the low-level request helper for internal use (AuthProvider)
 export { request };

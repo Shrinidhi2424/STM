@@ -12,6 +12,7 @@ const tournamentsRouter = require('./routes/tournaments');
 const matchesRouter = require('./routes/matches');
 const resultsRouter = require('./routes/results');
 const statsRouter = require('./routes/stats');
+const dbFeaturesRouter = require('./routes/db_features');
 
 const { init: initSocket, getIO } = require('./socket');
 
@@ -32,6 +33,7 @@ app.use('/api/tournaments', tournamentsRouter);
 app.use('/api/matches', matchesRouter);
 app.use('/api/results', resultsRouter);
 app.use('/api/stats', statsRouter);
+app.use('/api/db-features', dbFeaturesRouter);
 
 // health
 app.get('/api/health', (req, res) => res.json({ ok: true }));
