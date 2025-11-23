@@ -37,8 +37,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// CREATE result
-router.post('/', async (req, res) => {
+const { authenticateJWT, authorizeRole } = require('../middleware/auth');
+
+// CREATE result (Admin & Referee)
+router.post('/', authenticateJWT, authorizeRole('Admin','Referee'), async (req, res) => {
   const { MatchID, ScoreTeam1, ScoreTeam2, WinnerTeamID, EnteredBy } = req.body;
 
   try {
@@ -69,8 +71,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// UPDATE result
-router.put('/:id', async (req, res) => {
+// UPDATE result (Admin & Referee)
+router.put('/:id', authenticateJWT, authorizeRole('Admin','Referee'), async (req, res) => {
   const { ScoreTeam1, ScoreTeam2, WinnerTeamID, EnteredBy } = req.body;
 
   try {
@@ -92,8 +94,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE result
-router.delete('/:id', async (req, res) => {
+// DELETE result (Admin & Referee)
+router.delete('/:id', authenticateJWT, authorizeRole('Admin','Referee'), async (req, res) => {
   try {
     await db.query('DELETE FROM Result WHERE ResultID = ?', [req.params.id]);
     

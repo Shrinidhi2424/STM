@@ -44,12 +44,6 @@ export default function Dashboard() {
           <div style={{fontSize:22,fontWeight:700}}>{stats.matches}</div>
         </div>
       </div>
-
-      <div style={{ marginTop: 16 }}>
-        <h3>Project Abstract</h3>
-        <p className="small">Click to open the project abstract you uploaded.</p>
-        <a href="/mnt/data/STM ABSTRACT FINAL (1).pdf" target="_blank" rel="noreferrer">Open STM ABSTRACT FINAL (1).pdf</a>
-      </div>
     </div>
   );
 }

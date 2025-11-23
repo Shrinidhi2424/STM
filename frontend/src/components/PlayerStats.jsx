@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Stats as StatsAPI, Players as PlayerAPI, Matches as MatchAPI } from '../api';
 import { socket } from '../socket';
+import { useAuth } from '../auth/AuthProvider';
 
 export default function PlayerStats() {
   const [list, setList] = useState([]);
@@ -45,6 +46,9 @@ export default function PlayerStats() {
       socket.off('stats_deleted');
     };
   }, []);
+
+  const { user } = useAuth();
+  const canModify = user && user.role === 'Admin';
 
   async function create(e) {
     e.preventDefault();
@@ -97,7 +101,8 @@ export default function PlayerStats() {
     <div>
       <h2>Player Stats</h2>
 
-      <form onSubmit={create} className="form-row">
+      {canModify && (
+        <form onSubmit={create} className="form-row">
         <select
           value={form.PlayerID}
           onChange={e => setForm({ ...form, PlayerID: e.target.value })}
@@ -149,8 +154,9 @@ export default function PlayerStats() {
           onChange={e => setForm({ ...form, Rating: e.target.value })}
         />
 
-        <button className="btn" type="submit">Add</button>
-      </form>
+          <button className="btn" type="submit">Add</button>
+        </form>
+      )}
 
       <div className="list">
         {list.map(s => (
@@ -163,8 +169,12 @@ export default function PlayerStats() {
             </div>
 
             <div>
-              <button className="btn" onClick={() => edit(s)}>Edit</button>
-              <button className="btn danger" onClick={() => remove(s.StatsID)}>Delete</button>
+                    {canModify && (
+                      <>
+                        <button className="btn" onClick={() => edit(s)}>Edit</button>
+                        <button className="btn danger" onClick={() => remove(s.StatsID)}>Delete</button>
+                      </>
+                    )}
             </div>
           </div>
         ))}

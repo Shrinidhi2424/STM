@@ -33,8 +33,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// CREATE stat
-router.post('/', async (req, res) => {
+// CREATE stat (Admin only)
+const { authenticateJWT, authorizeRole } = require('../middleware/auth');
+
+router.post('/', authenticateJWT, authorizeRole('Admin'), async (req, res) => {
   const { PlayerID, MatchID, Goals, Assists, Cards, Rating } = req.body;
 
   try {
@@ -56,8 +58,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// UPDATE stat
-router.put('/:id', async (req, res) => {
+// UPDATE stat (Admin only)
+router.put('/:id', authenticateJWT, authorizeRole('Admin'), async (req, res) => {
   const { PlayerID, MatchID, Goals, Assists, Cards, Rating } = req.body;
 
   try {
@@ -79,8 +81,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE stat
-router.delete('/:id', async (req, res) => {
+// DELETE stat (Admin only)
+router.delete('/:id', authenticateJWT, authorizeRole('Admin'), async (req, res) => {
   try {
     await db.query('DELETE FROM PlayerStats WHERE StatsID = ?', [req.params.id]);
 

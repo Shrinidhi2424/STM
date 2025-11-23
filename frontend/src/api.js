@@ -19,6 +19,8 @@ async function request(path, opts = {}) {
 export const Users = {
   list: () => request('/users'),
   create: (payload) => request('/users', { method: 'POST', body: JSON.stringify(payload) }),
+  update: (id, payload) => request(`/users/${id}`, { method: 'PUT', body: JSON.stringify(payload) }),
+  del: (id) => request(`/users/${id}`, { method: 'DELETE' })
 };
 
 export const Teams = {
