@@ -1,0 +1,28 @@
+/* App-specific lightweight styles - relies on tokens in index.css */
+#root {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.logo {
+  height: 4.5rem;
+  padding: 1rem;
+  will-change: filter, transform;
+  transition: filter 240ms ease, transform 240ms ease;
+}
+.logo:hover { transform: translateY(-4px); }
+.logo:hover { filter: drop-shadow(0 8px 30px rgba(37,99,235,0.12)); }
+.logo.react:hover { filter: drop-shadow(0 8px 30px rgba(96,218,251,0.12)); }
+
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo { animation: logo-spin infinite 20s linear; }
+}
+
+.read-the-docs { color: var(--muted); }
